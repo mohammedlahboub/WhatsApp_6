@@ -35,7 +35,7 @@ client.on('message', async msg => {
 // }
 function respondToNextMessage(arr) {
     arr.forEach(async (msg) => {
-
+        // arr.arr.indexOf(msg)
         console.log(msg)
         if (msg.hasQuotedMsg) {
 
@@ -90,9 +90,11 @@ function respondToNextMessage(arr) {
                 const media = MessageMedia.fromFilePath('./screenshot2.png')
                 await client.sendMessage(msg.from, media)
             }
-            else
-                client.sendMessage(msg.from, 'List of commands : \n \n 1-1 Google : For Google Search . \n 1-2 Reply ( 1-5 ) to choose search result . \n 2- Scrn : To screenshot a Url .')
+            //? No need:
+            // else
+            // await client.sendMessage(msg.from, 'List of commands : \n \n 1-1 Google : For Google Search . \n 1-2 Reply ( 1-5 ) to choose search result . \n 2- Scrn : To screenshot a Url .')
         }
+        arr.shift()
     })
 }
 
@@ -140,7 +142,7 @@ const googleSearch = async (searchTerm) => {
 const takeScreenshot = async (url, sNum) => {
     const browser = await puppeteer.launch({ headless: "new" });
     const page = await browser.newPage();
-    await page.setViewport({ width: 1080, height: 1920 });
+    await page.setViewport({ width: 1920, height: 1920 });
     await page.goto(url);
     await page.screenshot({ path: `./screenshot${sNum}.png`, });
     await browser.close();
